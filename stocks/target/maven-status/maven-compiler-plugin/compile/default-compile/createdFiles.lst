@@ -1,0 +1,3 @@
+stock/Stock.class
+stock/StockCSVMapper.class
+stock/StockClosingMaxPerYearReducer.class
