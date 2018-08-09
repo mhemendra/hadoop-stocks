@@ -18,8 +18,7 @@ public class Stock extends Configured implements Tool{
 		}
 		Job job = new Job(getConf());
 		job.setJarByClass(Stock.class);
-		job.setJobName("Stock Analysis");
-
+		job.setJobName("Stock Data Analysis");
 		FileInputFormat.addInputPath(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));
 		job.setMapperClass(StockCSVMapper.class);
