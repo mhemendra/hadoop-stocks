@@ -20,6 +20,5 @@ public class StockClosingMaxPerYearReducer extends Reducer<IntWritable, IntWrita
 
 		}
 		context.write(key, new IntWritable(maxClosing));
-
 	}
 }
