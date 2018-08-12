@@ -1,5 +1,8 @@
-stock/StockMultiOutReducer.class
-stock/Stock.class
 stock/StockDataParser.class
+stock/StockDataPreProcessorMapper.class
 stock/StockCSVMapper.class
 stock/StockClosingMaxPerYearReducer.class
+stock/StockMultiOutReducer.class
+stock/Stock.class
+stock/StockPreParser.class
+stock/StockDataPreProcessor.class
