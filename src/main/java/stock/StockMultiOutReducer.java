@@ -3,34 +3,31 @@ package stock;
 import java.io.IOException;
 import java.util.Iterator;
 
-import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.output.MultipleOutputs;
 
-public class StockMultiOutReducer extends Reducer<Text, IntWritable, IntWritable, IntWritable>  {
+import input.IntFloat;
 
-	private MultipleOutputs<IntWritable, IntWritable> multipleOutputs;
+public class StockMultiOutReducer extends Reducer<IntFloat, Text, IntFloat, NullWritable>  {
+
+	private MultipleOutputs<IntFloat, NullWritable> multipleOutputs;
 	
 	@Override
 	protected void setup(Context context) throws IOException, InterruptedException {
-	 multipleOutputs = new MultipleOutputs<IntWritable, IntWritable>(context);	
+	 multipleOutputs = new MultipleOutputs<IntFloat, NullWritable>(context);	
 	}
 	
 	@Override
-	public void reduce(Text key, Iterable<IntWritable> values, Context context)
+	public void reduce(IntFloat key, Iterable<Text> values, Context context)
 			throws IOException, InterruptedException {
-		String[] keyArray = key.toString().split("-");
-		String stockName=keyArray[0];
-		String year=keyArray[1];
-		Iterator<IntWritable> iterator = values.iterator();
-		int maxClosing = 0;
-		while (iterator.hasNext()) {
-			int iterValue=iterator.next().get();
-			if(iterValue>maxClosing){
-				maxClosing=iterValue;
-			}
+		String stockName=null;
+		Iterator<Text> iter= values.iterator();
+		while(iter.hasNext()){
+			stockName=iter.next().toString();
+			break;
 		}
-		multipleOutputs.write(new IntWritable(Integer.parseInt(year)), new IntWritable(maxClosing),stockName);
+		multipleOutputs.write(key, NullWritable.get(),stockName);
 	}	
 }

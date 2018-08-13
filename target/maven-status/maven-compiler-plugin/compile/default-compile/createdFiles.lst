@@ -1,8 +1,11 @@
+comparators/GroupComparator.class
 stock/StockDataParser.class
 stock/StockDataPreProcessorMapper.class
 stock/StockCSVMapper.class
 stock/StockClosingMaxPerYearReducer.class
 stock/StockMultiOutReducer.class
 stock/Stock.class
+comparators/KeyComparator.class
 stock/StockPreParser.class
 stock/StockDataPreProcessor.class
+input/IntFloat.class
