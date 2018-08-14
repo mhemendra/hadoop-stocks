@@ -20,7 +20,6 @@ public class IntFloat implements WritableComparable<IntFloat> {
 	private void set(int year, float maxClosing) {
 		this.year = year;
 		this.maxClosing = maxClosing;
-
 	}
 
 	public int getYear() {
@@ -41,7 +40,7 @@ public class IntFloat implements WritableComparable<IntFloat> {
 
 	public void readFields(DataInput in) throws IOException {
 		year = in.readInt();
-		maxClosing = in.readInt();
+		maxClosing = in.readFloat();
 
 	}
 
