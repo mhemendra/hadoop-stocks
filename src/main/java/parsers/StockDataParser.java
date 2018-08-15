@@ -1,4 +1,4 @@
-package stock;
+package parsers;
 
 import org.apache.hadoop.io.Text;
 

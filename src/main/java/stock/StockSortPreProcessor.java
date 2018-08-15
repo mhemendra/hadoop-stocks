@@ -2,8 +2,8 @@ package stock;
 
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.NullWritable;
-import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.FloatWritable;
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.SequenceFileInputFormat;
@@ -11,13 +11,9 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-import comparators.GroupComparator;
-import comparators.KeyComparator;
-import input.IntFloat;
-import mappers.StockCSVMapper;
-import reducers.StockMultiOutReducer;
+import mappers.StockSortMapper;
 
-public class Stock extends Configured implements Tool{
+public class StockSortPreProcessor extends Configured implements Tool{
 
 	public int run(String[] args) throws Exception {
 		if (args.length != 2) {
@@ -25,23 +21,20 @@ public class Stock extends Configured implements Tool{
 			System.exit(-1);
 		}
 		Job job = new Job(getConf());
-		job.setJarByClass(Stock.class);
-		job.setJobName("Stock Data Analysis");
+		job.setJarByClass(StockSortPreProcessor.class);
+		job.setJobName("Stock Sort");
 		FileInputFormat.addInputPath(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));
+		job.setMapperClass(StockSortMapper.class);
 	    job.setInputFormatClass(SequenceFileInputFormat.class);
-		job.setMapperClass(StockCSVMapper.class);
-		job.setReducerClass(StockMultiOutReducer.class);
-		job.setOutputKeyClass(IntFloat.class);
-		job.setOutputValueClass(NullWritable.class);
-		job.setMapOutputValueClass(Text.class);
-		job.setSortComparatorClass(KeyComparator.class);
-		job.setGroupingComparatorClass(GroupComparator.class);
+		job.setNumReduceTasks(0);
+		job.setOutputKeyClass(FloatWritable.class);
+		job.setOutputValueClass(IntWritable.class);
 		return job.waitForCompletion(true) ? 0 : 1;
 	}
 
 	public static void main(String[] args) throws Exception {
-		int exitCode = ToolRunner.run(new Stock(), args);
+		int exitCode = ToolRunner.run(new StockSortPreProcessor(), args);
 		System.exit(exitCode);
 	}
 }

@@ -1,4 +1,4 @@
-package stock;
+package reducers;
 
 import java.io.IOException;
 import java.util.Iterator;

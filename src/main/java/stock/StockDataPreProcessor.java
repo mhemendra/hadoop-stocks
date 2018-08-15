@@ -12,6 +12,8 @@ import org.apache.hadoop.mapreduce.lib.output.SequenceFileOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
+import mappers.StockDataPreProcessorMapper;
+
 
 public class StockDataPreProcessor extends Configured implements Tool {
 

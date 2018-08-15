@@ -1,4 +1,4 @@
-package stock;
+package mappers;
 
 import java.io.IOException;
 
@@ -7,6 +7,7 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 import input.IntFloat;
+import parsers.StockDataParser;
 
 public class StockCSVMapper extends Mapper<LongWritable, Text, IntFloat, Text> {
 	@Override
